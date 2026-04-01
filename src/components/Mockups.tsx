@@ -32,7 +32,7 @@ export const MugMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLogo: 
           <rect x="50" y="40" width="100" height="120" rx="15" fill="url(#mugGradient)" />
         </g>
       </svg>
-      <div style={{ position: 'absolute', top: '50%', left: '50%', width: '60px', height: '60px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', width: '180px', height: '180px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <LogoContainer svg={logo} colorizeLogo={colorizeLogo} />
       </div>
     </div>
@@ -63,7 +63,7 @@ export const TshirtMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLog
           />
         </g>
       </svg>
-      <div style={{ position: 'absolute', top: '48%', left: '50%', width: '50px', height: '50px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ position: 'absolute', top: '48%', left: '50%', width: '200px', height: '200px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <LogoContainer svg={logo} colorizeLogo={colorizeLogo} />
       </div>
     </div>
@@ -89,9 +89,36 @@ export const CardMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLogo:
             <rect x="25" y="65" width="150" height="90" rx="5" fill="url(#cardGradient)" />
           </g>
         </svg>
-        <div style={{ position: 'absolute', top: '55%', left: '50%', width: '80px', height: '80px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', top: '55%', left: '50%', width: '160px', height: '160px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <LogoContainer svg={logo} colorizeLogo={colorizeLogo} />
         </div>
+      </div>
+    </div>
+  );
+};
+
+export const PhotoMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLogo: boolean }) => {
+  return (
+    <div className="glass-panel mockup-item" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--glass-border)', position: 'relative' }}>
+      {/* Fallback barva kdyby obrázek neexistoval */}
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.05)', zIndex: 0 }} />
+      
+      <img src={`${import.meta.env.BASE_URL}photo-mockup.jpg`} alt="Photo Mockup" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', zIndex: 1 }} />
+      
+      {/* Barevná vrstva (multiply overlay) - omezena maskou jen na oblast trička (zhruba střed hrudníku) */}
+      <div style={{ 
+        position: 'absolute', 
+        inset: 0, 
+        backgroundColor: 'var(--color-secondary)', 
+        mixBlendMode: 'multiply', 
+        zIndex: 2,
+        opacity: 0.9,
+        WebkitMaskImage: 'radial-gradient(ellipse 80% 90% at 50% 60%, black 25%, rgba(0,0,0,0.5) 50%, transparent 75%)',
+        maskImage: 'radial-gradient(ellipse 80% 90% at 50% 60%, black 25%, rgba(0,0,0,0.5) 50%, transparent 75%)'
+      }} />
+
+      <div style={{ position: 'absolute', top: '55%', left: '50%', width: '140px', height: '140px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center', mixBlendMode: 'multiply', opacity: 0.85, zIndex: 3 }}>
+        <LogoContainer svg={logo} colorizeLogo={colorizeLogo} />
       </div>
     </div>
   );

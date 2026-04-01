@@ -1,9 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { Upload, Palette, BadgeCheck, XOctagon } from 'lucide-react';
-import { TshirtMockup, MugMockup, CardMockup } from './components/Mockups';
+import { TshirtMockup, MugMockup, CardMockup, PhotoMockup } from './components/Mockups';
 
-const DEFAULT_LOGO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`;
+const DEFAULT_LOGO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M 32 25 v -12 M 68 25 v -12" stroke-width="8" />
+  <path d="M 25 35 q 0 -10 10 -10 h 30 q 10 0 10 10 v 17 q 0 16 -25 16 q -25 0 -25 -16 z" stroke-width="10" />
+  <path d="M 14 38 v 14 M 86 38 v 14" stroke-width="10" />
+  <path d="M 38 40 v 8 M 62 40 v 8" stroke-width="6" />
+  <path d="M 45 58 h 10" stroke-width="6" />
+  <path d="M 15 86 q 35 -10 70 0" stroke-width="8" />
+</svg>`;
 
 function App() {
   const [primaryColor, setPrimaryColor] = useState('#3b82f6');
@@ -144,6 +151,7 @@ function App() {
 
       {/* Right Canvas */}
       <div className="canvas-area">
+        <PhotoMockup logo={logoSvg} colorizeLogo={colorizeLogo} />
         <MugMockup logo={logoSvg} colorizeLogo={colorizeLogo} />
         <TshirtMockup logo={logoSvg} colorizeLogo={colorizeLogo} />
         <CardMockup logo={logoSvg} colorizeLogo={colorizeLogo} />
