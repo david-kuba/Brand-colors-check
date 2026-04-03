@@ -116,14 +116,81 @@ input[type="color"]:hover {
   transform: scale(1.1);
 }
 
-.color-hex {
+.color-hex-input {
   font-family: monospace;
   font-size: 1.1rem;
-  background: rgba(0,0,0,0.2);
-  padding: 0.5rem 1rem;
+  background: rgba(0,0,0,0.3);
+  padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--color-text);
   text-transform: uppercase;
+  width: 100%;
+  transition: var(--transition);
+  outline: none;
+}
+
+.color-hex-input:focus {
+  border-color: var(--color-primary);
+  background: rgba(0,0,0,0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.colors-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 0.5rem;
+}
+
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.color-circle-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pipette-icon {
+  position: absolute;
+  pointer-events: none;
+  background: white;
+  color: var(--color-bg);
+  border-radius: 50%;
+  padding: 4px;
+  bottom: 0px;
+  right: -4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Primary Color Enhancement */
+.primary-group {
+  margin-bottom: 0.5rem;
+}
+.primary-group label {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+.primary-picker input[type="color"] {
+  width: 64px;
+  height: 64px;
+}
+.primary-picker .color-hex-input {
+  font-size: 1.3rem;
+  padding: 0.75rem 1rem;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed rgba(255,255,255,0.2);
 }
 
 .wcag-widget {

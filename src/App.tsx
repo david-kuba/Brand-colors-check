@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import chroma from 'chroma-js';
-import { Upload, Palette, BadgeCheck, XOctagon } from 'lucide-react';
+import { Upload, Palette, BadgeCheck, XOctagon, Pipette } from 'lucide-react';
 import { TshirtMockup, MugMockup, CardMockup, PhotoMockup } from './components/Mockups';
 
 const DEFAULT_LOGO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -75,62 +75,94 @@ function App() {
           <p>Vizualizace brandu na reálných objektech</p>
         </div>
 
-        <div className="control-group">
-          <label>Nahrát logo (SVG)</label>
-          <div className="file-upload">
-            <button className="btn">
-              <Upload size={18} /> Vybrat SVG soubor
-            </button>
-            <input type="file" accept=".svg" onChange={handleFileUpload} />
+        <div className="colors-section">
+          <div className="control-group primary-group">
+            <label>Primární barva - LOGO</label>
+            <div className="color-picker-wrapper primary-picker">
+              <div className="color-circle-container">
+                <input 
+                  type="color" 
+                  value={primaryColor} 
+                  onChange={(e) => setPrimaryColor(e.target.value)} 
+                />
+                <Pipette className="pipette-icon" size={16} />
+              </div>
+              <input 
+                type="text" 
+                className="color-hex-input" 
+                value={primaryColor} 
+                onChange={(e) => setPrimaryColor(e.target.value)} 
+              />
+            </div>
           </div>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginTop: '0.5rem', fontWeight: 'normal', textTransform: 'none' }}>
-            <input type="checkbox" checked={colorizeLogo} onChange={(e) => setColorizeLogo(e.target.checked)} />
-            Vnutit logu primární barvu
-          </label>
+
+          <div className="control-group">
+            <label>Sekundární barva (Povrch)</label>
+            <div className="color-picker-wrapper">
+              <div className="color-circle-container">
+                <input 
+                  type="color" 
+                  value={secondaryColor} 
+                  onChange={(e) => setSecondaryColor(e.target.value)} 
+                />
+                <Pipette className="pipette-icon" size={12} />
+              </div>
+              <input 
+                type="text" 
+                className="color-hex-input" 
+                value={secondaryColor} 
+                onChange={(e) => setSecondaryColor(e.target.value)} 
+              />
+            </div>
+          </div>
+
+          <div className="control-group">
+            <label>Barva pozadí</label>
+            <div className="color-picker-wrapper">
+              <div className="color-circle-container">
+                <input 
+                  type="color" 
+                  value={bgColor} 
+                  onChange={(e) => setBgColor(e.target.value)} 
+                />
+                <Pipette className="pipette-icon" size={12} />
+              </div>
+              <input 
+                type="text" 
+                className="color-hex-input" 
+                value={bgColor} 
+                onChange={(e) => setBgColor(e.target.value)} 
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="control-group">
-          <label>Primární barva</label>
-          <div className="color-picker-wrapper">
-            <input 
-              type="color" 
-              value={primaryColor} 
-              onChange={(e) => setPrimaryColor(e.target.value)} 
-            />
-            <span className="color-hex">{primaryColor}</span>
-          </div>
-        </div>
-
-        <div className="control-group">
-          <label>Sekundární barva (Povrch)</label>
-          <div className="color-picker-wrapper">
-            <input 
-              type="color" 
-              value={secondaryColor} 
-              onChange={(e) => setSecondaryColor(e.target.value)} 
-            />
-            <span className="color-hex">{secondaryColor}</span>
-          </div>
-          <button className="btn" style={{ marginTop: '0.5rem' }} onClick={generateSecondary}>
-            <Palette size={18} /> AI Výběr Barvy
+        <div className="actions-section">
+          <button className="btn" onClick={generateSecondary}>
+            <Palette size={18} /> Vygenerovat sec. barvu (AI)
           </button>
-        </div>
 
-        <div className="control-group">
-          <label>Barva pozadí</label>
-          <div className="color-picker-wrapper">
-            <input 
-              type="color" 
-              value={bgColor} 
-              onChange={(e) => setBgColor(e.target.value)} 
-            />
+          <div className="control-group switch-wrapper" onClick={() => setSwapColors(!swapColors)}>
+            <label style={{ cursor: 'pointer', margin: 0 }}>Prohodit barvy povrch/logo</label>
+            <div className={`switch ${swapColors ? 'active' : ''}`}>
+              <div className="switch-knob"></div>
+            </div>
           </div>
-        </div>
 
-        <div className="control-group switch-wrapper" onClick={() => setSwapColors(!swapColors)}>
-          <label style={{ cursor: 'pointer', margin: 0 }}>Prohodit barvy povrch/logo</label>
-          <div className={`switch ${swapColors ? 'active' : ''}`}>
-            <div className="switch-knob"></div>
+          <div className="control-group">
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontWeight: 'normal', textTransform: 'none', color: 'var(--color-text)' }}>
+              <input type="checkbox" checked={colorizeLogo} onChange={(e) => setColorizeLogo(e.target.checked)} />
+              Vnutit logu primární barvu
+            </label>
+          </div>
+
+          <div className="control-group" style={{ marginTop: '0.5rem' }}>
+            <div className="file-upload">
+              <button className="btn btn-secondary">
+                <Upload size={18} /> Nahrát logo (SVG)
+              </button>
+              <input type="file" accept=".svg" onChange={handleFileUpload} />
+            </div>
           </div>
         </div>
 

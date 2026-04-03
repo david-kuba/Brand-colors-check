@@ -98,28 +98,48 @@ export const CardMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLogo:
 };
 
 export const PhotoMockup = ({ logo, colorizeLogo }: { logo: string, colorizeLogo: boolean }) => {
+  const imgSrc = `${import.meta.env.BASE_URL}t_shirt-mockup.png`;
+
   return (
     <div className="glass-panel mockup-item" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--glass-border)', position: 'relative' }}>
-      {/* Fallback barva kdyby obrázek neexistoval */}
       <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.05)', zIndex: 0 }} />
       
-      <img src={`${import.meta.env.BASE_URL}photo-mockup.jpg`} alt="Photo Mockup" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', zIndex: 1 }} />
+      <img src={imgSrc} alt="T-Shirt Mockup" style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'absolute', zIndex: 1 }} />
       
-      {/* Barevná vrstva (multiply overlay) - omezena maskou jen na oblast trička (zhruba střed hrudníku) */}
+      {/* Hlavní barevná vrstva (multiply) + maska pomocí samotného průhledného obrázku */}
       <div style={{ 
         position: 'absolute', 
         inset: 0, 
         backgroundColor: 'var(--color-secondary)', 
         mixBlendMode: 'multiply', 
         zIndex: 2,
-        opacity: 0.9,
-        WebkitMaskImage: 'radial-gradient(ellipse 80% 90% at 50% 60%, black 25%, rgba(0,0,0,0.5) 50%, transparent 75%)',
-        maskImage: 'radial-gradient(ellipse 80% 90% at 50% 60%, black 25%, rgba(0,0,0,0.5) 50%, transparent 75%)'
+        opacity: 0.95,
+        WebkitMaskImage: `url(${imgSrc})`,
+        maskImage: `url(${imgSrc})`,
+        WebkitMaskSize: 'contain',
+        WebkitMaskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        maskSize: 'contain',
+        maskPosition: 'center',
+        maskRepeat: 'no-repeat'
       }} />
 
-      <div style={{ position: 'absolute', top: '55%', left: '50%', width: '140px', height: '140px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center', mixBlendMode: 'multiply', opacity: 0.85, zIndex: 3 }}>
+      {/* Logo container posunutý výše a zvětšený */}
+      <div style={{ position: 'absolute', top: '40%', left: '50%', width: '150px', height: '150px', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 3 }}>
         <LogoContainer svg={logo} colorizeLogo={colorizeLogo} />
       </div>
+
+      {/* Vrstva stínů a textury PŘES logo i přes zbytek trička, 
+          díky grayscale+multiply bílá barva nezmění nic, 
+          zatímco záhyby textilie (šedá) udělají stíny i na logu */}
+      <img src={imgSrc} alt="" style={{ 
+        width: '100%', height: '100%', objectFit: 'contain', 
+        position: 'absolute', zIndex: 4, 
+        mixBlendMode: 'multiply', 
+        filter: 'grayscale(100%) contrast(1.1)',
+        opacity: 0.15,
+        pointerEvents: 'none'
+      }} />
     </div>
   );
 };
